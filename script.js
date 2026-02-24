@@ -284,7 +284,7 @@ const sectionsData = [
     head: "Reception🥂",
     bodyText: "Grand Ballroom · 6:00 PM",
     type: "reception",
-    imageURL: "assets/images/reception.png",
+    imageURL: "assets/images/reception_1.jpeg",
     icon: "🥂",
     cmbo: "r",
   },
