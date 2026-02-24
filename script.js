@@ -1,4 +1,49 @@
-confettiCtx.rotate((p.rotation * Math.PI) / 180);
+// CONFETTI
+let lastTime = performance.now();
+let animationRunning = false;
+
+
+
+// Handle tab visibility (prevents jump / stacking issue)
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    animationRunning = false; // pause animation
+  } else {
+    lastTime = performance.now(); // reset timing
+    if (confettiElements.length > 0 && !animationRunning) {
+      animationRunning = true;
+      requestAnimationFrame(animateConfetti);
+    }
+  }
+});
+
+function animateConfetti(time = performance.now()) {
+  if (!animationRunning) return;
+
+  // ---- Delta Time (frame rate independent) ----
+  let delta = (time - lastTime) / 16.67; // normalize to 60fps
+  lastTime = time;
+
+  // Prevent big jumps after lag or tab restore
+  delta = Math.min(delta, 2);
+
+  confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+  // ---- Draw & Update Particles ----
+  for (let i = confettiElements.length - 1; i >= 0; i--) {
+    const p = confettiElements[i];
+
+    // Physics
+    p.dy += 0.1 * delta; // gravity
+    p.dy *= Math.pow(0.99, delta); // air drag
+    p.x += (p.dx + Math.sin(p.y * 0.02) * 1.5) * delta; // sway
+    p.y += p.dy * delta;
+    p.rotation += p.rotationSpeed * delta;
+
+    // Draw rotated rectangle
+    confettiCtx.save();
+    confettiCtx.translate(p.x, p.y);
+    confettiCtx.rotate((p.rotation * Math.PI) / 180);
 
     confettiCtx.fillStyle = p.color;
     confettiCtx.fillRect(-p.r / 2, -p.r / 2, p.r, p.r * 0.4);
@@ -286,3 +331,20 @@ window.addEventListener("DOMContentLoaded", () => {
   revealPanels();
   window.addEventListener("scroll", revealPanels);
 });
+
+
+async function fetchSheetData(sheetId, sheetName) {
+  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
+  const response = await fetch(url);
+  const text = await response.text();
+
+  // Google returns JSON wrapped in a function call, so we need to extract it
+  const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\((.*)\);/)[1]);
+  return json;
+}
+
+async function getSheetDataAndLog() {
+  const res = await fetchSheetData('121ACovi12omFPe5jC2OSBxW8EKs5NhRVVrc4xWmrdJ0', 'wcodes');
+  console.log('aaa', res);
+}
+getSheetDataAndLog();
