@@ -289,14 +289,17 @@ h2 {
    FOOTER
 ========================= */
 footer {
-  background: #000;
   width: 100%;
   text-align: center;
-  padding: 20px;
   scroll-snap-align: none;
   position: absolute;
   bottom: 0;
   z-index: 2;
+}
+.footer-inner{
+  background: #000;
+  padding: 20px;
+
 }
 
 .panel.reception::after {
