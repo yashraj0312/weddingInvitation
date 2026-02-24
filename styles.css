@@ -22,10 +22,6 @@ body {
   background-color: unset;
 }
 
-.mask {
-  transform: rotate3d(-163, 111, 20, 314deg) !important;
-}
-
 /* =========================
    INTRO LOADER
 ========================= */
