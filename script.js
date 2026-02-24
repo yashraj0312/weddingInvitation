@@ -250,7 +250,7 @@ const sheetData = getSheetDataFormat();
 
 const sectionsData = [
   {
-    head: "Emma & Liam",
+    head: "Yash & Harshita",
     bodyText: "Wedding Invitation",
     type: "hero",
     imageURL: "assets/images/hero-bg.jpg",
@@ -315,7 +315,7 @@ function createSection(section) {
   `;
 }
 // Remove existing panels except hero
-document.title = "Emma & Liam | Wedding Invitation";
+document.title = "Yash & Harshita | Wedding Invitation";
 document.querySelectorAll(".panel.image-panel").forEach((el) => el.remove());
 window.onload = function () {
   window.scrollTo(0, 0); // Scrolls to top-left corner
@@ -338,7 +338,7 @@ async function processSheetData() {
 
 const heroSection = document.querySelector(".hero");
 let lastInserted = heroSection;
-const footerHtml = `<div class="footer-inner"><p>Emma & Liam ❤️ 2026</p></div>`;
+const footerHtml = `<div class="footer-inner"><p>Yash & Harshita ❤️ 2026</p></div>`;
 
 let processedSheetDataPromise = processSheetData();
 processedSheetDataPromise.then((data) => {
