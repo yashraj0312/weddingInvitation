@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <!-- Intro Loader -->
+    <div id="intro-loader">
+      <div class="loader-content">
+        <h1>Emma & Liam</h1>
+        <p>Wedding Invitation</p>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <video
+        class="hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        poster="assets/images/hero-bg.jpg"
+      ></video>
+      <div class="hero-overlay"></div>
+      <canvas id="particles"></canvas>
+
+      <div class="hero-inner">
+        <h1 class="mask"><span>Emma</span> & <span>Liam</span></h1>
+        <p class="reveal">Nov 20, 2026</p>
+        <div id="countdown" class="reveal"></div>
+      </div>
+    </section>
+
+    <div id="progress-bar"></div>
+
+    <nav id="dot-nav">
+      <ul>
+        <li data-target=".hero" class="active"></li>
+        <li data-target=".story"></li>
+        <li data-target=".engagement"></li>
+        <li data-target=".ceremony"></li>
+        <li data-target=".reception"></li>
+      </ul>
+    </nav>
+
+
+    <canvas id="confetti"></canvas>
+    <script src="script.js"></script>
+  </body>
+</html>
