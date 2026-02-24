@@ -370,9 +370,36 @@ footer {
 /* =========================
    RESPONSIVE
 ========================= */
+@media (max-width: 2560px) {
+  .hero-inner h1 {
+    font-size: 80px;
+  }
+
+  .hero-inner p {
+    font-size: 30px;
+  }
+
+  h2 {
+    font-size: 36px;
+  }
+
+  #countdown div {
+    padding: 26px 28px;
+    font-size: 30px;
+  }
+
+  .glass-card {
+    padding: 30px;
+  }
+
+  #dot-nav {
+    right: 15px;
+  }
+}
+
 @media (max-width: 1440px) {
   .hero-inner h1 {
-    font-size: 60px;
+    font-size: 56px;
   }
 
   .hero-inner p {
@@ -383,9 +410,9 @@ footer {
     font-size: 36px;
   }
 
-    #countdown div {
+  #countdown div {
     padding: 14px 16px;
-    font-size: 16px;
+    font-size: 18px;
   }
 
   .glass-card {
@@ -399,11 +426,11 @@ footer {
 
 @media (max-width: 1024px) {
   .hero-inner h1 {
-    font-size: 48px;
+    font-size: 42px;
   }
 
   .hero-inner p {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   h2 {
@@ -426,11 +453,11 @@ footer {
 
 @media (max-width: 768px) {
   .hero-inner h1 {
-    font-size: 40px;
+    font-size: 37px;
   }
 
   .hero-inner p {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   #countdown div {
@@ -453,11 +480,11 @@ footer {
 
 @media (max-width: 480px) {
   .hero-inner h1 {
-    font-size: 32px;
+    font-size: 27px;
   }
 
   .hero-inner p {
-    font-size: 16px;
+    font-size: 12px;
   }
 
   #countdown {
