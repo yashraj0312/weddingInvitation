@@ -1,21 +1,80 @@
-// CONFETTI
 let lastTime = performance.now();
 let animationRunning = false;
+const confettiCanvas = document.getElementById("confetti");
+const confettiCtx = confettiCanvas.getContext("2d");
+confettiCanvas.width = window.innerWidth;
+confettiCanvas.height = window.innerHeight;
+let confettiElements = [];
+let confettiStarted = false;
+const countdownEl = document.getElementById("countdown");
+const weddingDate = new Date("Nov 20, 2026 00:00:00").getTime();
+let timeGapForConfetti = 0;
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+let particles = [];
+const particleCount = window.innerWidth < 768 ? 30 : 80;
+const progress = document.getElementById("progress-bar");
+const panels = document.querySelectorAll(".panel");
+const heroSection = document.querySelector(".hero");
+let lastInserted = heroSection;
 
-// Handle tab visibility (prevents jump / stacking issue)
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
-    animationRunning = false; // pause animation
-  } else {
-    lastTime = performance.now(); // reset timing
-    if (confettiElements.length > 0 && !animationRunning) {
-      animationRunning = true;
-      requestAnimationFrame(animateConfetti);
-    }
-  }
-});
 
-function animateConfetti(time = performance.now()) {
+const BRIDE_NAME = "Harshita";
+const GROOM_NAME = "Yash";
+
+const footerHtml = `<div class="footer-inner"><p>${GROOM_NAME} & ${BRIDE_NAME} ❤️ 2026</p></div>`;
+const sectionsData = [
+  {
+    head: `${GROOM_NAME} & ${BRIDE_NAME}`,
+    bodyText: "Wedding Invitation",
+    type: "hero",
+    imageURL: "assets/images/hero-bg.jpg",
+    icon: null,
+  },
+  {
+    head: "Our Story❤️",
+    bodyText: "One message turned up to a connection of a lifetime.",
+    type: "story",
+    imageURL: "assets/images/story.jpg", // No image tag found in this section in the attached file
+    icon: "❤️",
+    cmbo: "s",
+  },
+  {
+    head: "Engagement💍",
+    bodyText: [
+      "Under the stars, forever began.",
+      "22 Jun	6:30",
+      "Nakshatra 2.0, Viraj Khand",
+      "Lucknow",
+    ],
+    type: "engagement",
+    imageURL: "assets/images/engagement_1.png", // No image tag found in this section in the attached file
+    icon: "💍",
+    cmbo: "e",
+  },
+  {
+    head: "Wedding Ceremony👨🏻‍❤️‍👩🏻",
+    bodyText: "Sunset Garden Hall · 4:00 PM",
+    type: "ceremony",
+    imageURL: "assets/images/wedding_1.png", // No image tag found in this section in the attached file
+    icon: "⛪",
+    cmbo: "c",
+  },
+  {
+    head: "Reception🥂",
+    bodyText: "Grand Ballroom · 6:00 PM",
+    type: "reception",
+    imageURL: "assets/images/reception.png",
+    icon: "🥂",
+    cmbo: "r",
+  },
+];
+
+const WORKING_QUERY_PARAM = 'sl';
+
+const animateConfetti = (time = performance.now()) => {
   if (!animationRunning) return;
 
   // ---- Delta Time (frame rate independent) ----
@@ -60,15 +119,8 @@ function animateConfetti(time = performance.now()) {
   } else {
     animationRunning = false;
   }
-}
-
-const confettiCanvas = document.getElementById("confetti");
-const confettiCtx = confettiCanvas.getContext("2d");
-confettiCanvas.width = window.innerWidth;
-confettiCanvas.height = window.innerHeight;
-let confettiElements = [];
-let confettiStarted = false;
-function triggerConfetti() {
+};
+const triggerConfetti = () => {
   for (let i = 0; i < 150; i++) {
     confettiElements.push({
       x: Math.random() * confettiCanvas.width,
@@ -85,13 +137,9 @@ function triggerConfetti() {
     lastTime = performance.now();
     requestAnimationFrame(animateConfetti);
   }
-}
+};
 
-// COUNTDOWN
-const countdownEl = document.getElementById("countdown");
-const weddingDate = new Date("Nov 20, 2026 00:00:00").getTime();
-let timeGapForConfetti = 0;
-function updateCountdown() {
+const updateCountdown = () => {
   const now = new Date().getTime();
   const gap = weddingDate - now;
   const days = Math.max(Math.floor(gap / (1000 * 60 * 60 * 24)), 0);
@@ -112,13 +160,13 @@ function updateCountdown() {
     `;
 
   timeGapForConfetti = gap;
-}
+};
 
-function triggerConfettiOnCompletion() {
+const triggerConfettiOnCompletion = () => {
   if (timeGapForConfetti <= 0) {
     triggerConfetti();
   }
-}
+};
 
 updateCountdown();
 setInterval(updateCountdown, 1000);
@@ -126,21 +174,6 @@ setInterval(updateCountdown, 1000);
 triggerConfettiOnCompletion();
 setInterval(triggerConfettiOnCompletion, 2000);
 
-// INTRO LOADER FADE
-window.addEventListener("load", () => {
-  const loader = document.getElementById("intro-loader");
-  setTimeout(() => {
-    loader.classList.add("fade-out");
-  }, 2500);
-});
-
-// PARTICLE ANIMATION
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-let particles = [];
-const particleCount = window.innerWidth < 768 ? 30 : 80;
 for (let i = 0; i < particleCount; i++) {
   particles.push({
     x: Math.random() * canvas.width,
@@ -166,9 +199,152 @@ function animateParticles() {
 }
 animateParticles();
 
-// SCROLL PROGRESS & DOTS
-const progress = document.getElementById("progress-bar");
-const panels = document.querySelectorAll(".panel");
+// DOT NAV CLICK
+document.querySelectorAll("#dot-nav li").forEach((dot) => {
+  dot.addEventListener("click", () => {
+    document
+      .querySelector(dot.dataset.target)
+      .scrollIntoView({ behavior: "smooth" });
+  });
+});
+
+const fetchSheetData = async (sheetId, sheetName) => {
+  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
+  const response = await fetch(url);
+  const text = await response.text();
+
+  // Google returns JSON wrapped in a function call, so we need to extract it
+  const json = JSON.parse(
+    text.match(/google\.visualization\.Query\.setResponse\((.*)\);/)[1],
+  );
+  return json;
+};
+
+const getSheetDataFormat = async () => {
+  const res = await fetchSheetData(
+    "121ACovi12omFPe5jC2OSBxW8EKs5NhRVVrc4xWmrdJ0",
+    "wcodes",
+  );
+  const table = res.table;
+  const cmboIdx = table.cols.findIndex(
+    (col) => col.label.toLowerCase() === "cmbo",
+  );
+  const codeIdx = table.cols.findIndex(
+    (col) => col.label.toLowerCase() === "code",
+  );
+  const data = table.rows.map((row) => ({
+    cmbo: row.c[cmboIdx] ? row.c[cmboIdx].v : null,
+    code: row.c[codeIdx] ? row.c[codeIdx].v : null,
+  }));
+  return JSON.stringify(data, null, 2);
+};
+
+const createSection = (section) => {
+  // Only add image if imageURL exists
+  const imgTag = section.imageURL
+    ? `<img class="bg-img" src="${section.imageURL}" alt="${section.head} Background" />`
+    : "";
+
+  const bodyHtml = Array.isArray(section.bodyText)
+    ? section.bodyText
+        .map((text) => `<p class="section-bodyText">${text}</p>`)
+        .join("")
+    : `<p>${section.bodyText}</p>`;
+
+  // Panel class for all except hero
+  const panelClass =
+    section.type === "hero" ? "hero" : `panel image-panel ${section.type}`;
+
+  // Section HTML (footer removed from here)
+  return `
+    <section class="${panelClass}">
+      ${section.type !== "hero" ? '<div class="overlay-dark"></div>' : ""}
+      ${imgTag}
+      <div class="overlay-dark"></div>
+      <div class="inner">
+        <h2>${section.head}</h2>
+        ${bodyHtml}
+      </div>
+      <footer class="footersection"></footer>
+    </section>
+  `;
+};
+// Remove existing panels except hero
+document.title = `${GROOM_NAME} & ${BRIDE_NAME} | Wedding Invitation`;
+document.querySelectorAll(".panel.image-panel").forEach((el) => el.remove());
+
+const getQueryParam = (name) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+};
+
+const slParam = getQueryParam(WORKING_QUERY_PARAM);
+let processedSheetData = [];
+const processSheetData = async () => {
+  const resolvedSheetData = await getSheetDataFormat();
+  const visibleSections = JSON.parse(resolvedSheetData)
+    .filter((el) => el.code == slParam)
+    .map((el) => el.cmbo);
+  return visibleSections;
+};
+
+let processedSheetDataPromise = processSheetData();
+processedSheetDataPromise.then((data) => {
+  let lastAllowedSectionElem = null;
+  const allowedSections = data[0]?.split(",");
+  sectionsData.forEach((section) => {
+    if (section.type !== "hero" && allowedSections?.includes(section.cmbo)) {
+      const html = createSection(section);
+      lastInserted.insertAdjacentHTML("afterend", html);
+      lastInserted = lastInserted.nextElementSibling;
+      lastAllowedSectionElem = lastInserted;
+      anySectionInserted = true;
+    }
+  });
+  // Insert footerHtml inside the last allowed section
+  if (lastAllowedSectionElem) {
+    const footer = lastAllowedSectionElem.querySelector(".footersection");
+    if (footer) {
+      footer.insertAdjacentHTML("beforeend", footerHtml);
+    }
+  }
+});
+
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
+const revealPanels = () => {
+  document.querySelectorAll(".panel .inner").forEach((inner) => {
+    const top = inner.getBoundingClientRect().top;
+    const bottom = inner.getBoundingClientRect().bottom;
+    // If any part of the panel is visible
+    if (top < window.innerHeight - 100 && bottom > 100) {
+      inner.classList.add("active");
+    } else {
+      inner.classList.remove("active");
+    }
+  });
+};
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    animationRunning = false; // pause animation
+  } else {
+    lastTime = performance.now(); // reset timing
+    if (confettiElements.length > 0 && !animationRunning) {
+      animationRunning = true;
+      requestAnimationFrame(animateConfetti);
+    }
+  }
+});
+
+window.addEventListener("load", () => {
+  const loader = document.getElementById("intro-loader");
+  setTimeout(() => {
+    loader.classList.add("fade-out");
+  }, 2500);
+});
 window.addEventListener("scroll", () => {
   const scrollTop = document.documentElement.scrollTop;
   const scrollHeight =
@@ -197,17 +373,6 @@ window.addEventListener("scroll", () => {
     panel.style.backgroundPosition = `center ${-scrollTop * 0.03}px`;
   });
 });
-
-// DOT NAV CLICK
-document.querySelectorAll("#dot-nav li").forEach((dot) => {
-  dot.addEventListener("click", () => {
-    document
-      .querySelector(dot.dataset.target)
-      .scrollIntoView({ behavior: "smooth" });
-  });
-});
-
-// RESIZE HANDLER
 window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -215,179 +380,12 @@ window.addEventListener("resize", () => {
   confettiCanvas.height = window.innerHeight;
 });
 
-async function fetchSheetData(sheetId, sheetName) {
-  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
-  const response = await fetch(url);
-  const text = await response.text();
-
-  // Google returns JSON wrapped in a function call, so we need to extract it
-  const json = JSON.parse(
-    text.match(/google\.visualization\.Query\.setResponse\((.*)\);/)[1],
-  );
-  return json;
-}
-
-async function getSheetDataFormat() {
-  const res = await fetchSheetData(
-    "121ACovi12omFPe5jC2OSBxW8EKs5NhRVVrc4xWmrdJ0",
-    "wcodes",
-  );
-  const table = res.table;
-  const cmboIdx = table.cols.findIndex(
-    (col) => col.label.toLowerCase() === "cmbo",
-  );
-  const codeIdx = table.cols.findIndex(
-    (col) => col.label.toLowerCase() === "code",
-  );
-  const data = table.rows.map((row) => ({
-    cmbo: row.c[cmboIdx] ? row.c[cmboIdx].v : null,
-    code: row.c[codeIdx] ? row.c[codeIdx].v : null,
-  }));
-  return JSON.stringify(data, null, 2);
-}
-
-const sheetData = getSheetDataFormat();
-
-const sectionsData = [
-  {
-    head: "Yash & Harshita",
-    bodyText: "Wedding Invitation",
-    type: "hero",
-    imageURL: "assets/images/hero-bg.jpg",
-    icon: null,
-  },
-  {
-    head: "Our Story❤️",
-    bodyText: "One message turned up to a connection of a lifetime.",
-    type: "story",
-    imageURL: "assets/images/story.jpg", // No image tag found in this section in the attached file
-    icon: "❤️",
-    cmbo: "s",
-  },
-  {
-    head: "Engagement💍",
-    bodyText: "Under the stars, forever began.",
-    type: "engagement",
-    imageURL: "assets/images/engagement_1.png", // No image tag found in this section in the attached file
-    icon: "💍",
-    cmbo: "e",
-  },
-  {
-    head: "Wedding Ceremony👨🏻‍❤️‍👩🏻",
-    bodyText: "Sunset Garden Hall · 4:00 PM",
-    type: "ceremony",
-    imageURL: "assets/images/wedding_1.png", // No image tag found in this section in the attached file
-    icon: "⛪",
-    cmbo: "c",
-  },
-  {
-    head: "Reception🥂",
-    bodyText: "Grand Ballroom · 6:00 PM",
-    type: "reception",
-    imageURL: "assets/images/reception.png",
-    icon: "🥂",
-    cmbo: "r",
-  },
-];
-
-function createSection(section) {
-  // Only add image if imageURL exists
-  const imgTag = section.imageURL
-    ? `<img class="bg-img" src="${section.imageURL}" alt="${section.head} Background" />`
-    : "";
-
-  // Panel class for all except hero
-  const panelClass =
-    section.type === "hero" ? "hero" : `panel image-panel ${section.type}`;
-
-  // Section HTML (footer removed from here)
-  return `
-    <section class="${panelClass}">
-      ${section.type !== "hero" ? '<div class="overlay-dark"></div>' : ""}
-      ${imgTag}
-      <div class="overlay-dark"></div>
-      <div class="inner">
-        <h2>${section.head}</h2>
-        <p>${section.bodyText}</p>
-      </div>
-      <footer class="footersection"></footer>
-    </section>
-  `;
-}
-// Remove existing panels except hero
-document.title = "Yash & Harshita | Wedding Invitation";
-document.querySelectorAll(".panel.image-panel").forEach((el) => el.remove());
-window.onload = function () {
-  window.scrollTo(0, 0); // Scrolls to top-left corner
-};
-// Get 'sl' parameter from URL
-function getQueryParam(name) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(name);
-}
-
-const slParam = getQueryParam("sl");
-let processedSheetData = [];
-async function processSheetData() {
-  const resolvedSheetData = await sheetData;
-  const visibleSections = JSON.parse(resolvedSheetData)
-    .filter((el) => el.code == slParam)
-    .map((el) => el.cmbo);
-  return visibleSections;
-}
-
-const heroSection = document.querySelector(".hero");
-let lastInserted = heroSection;
-const footerHtml = `<div class="footer-inner"><p>Yash & Harshita ❤️ 2026</p></div>`;
-
-let processedSheetDataPromise = processSheetData();
-processedSheetDataPromise.then((data) => {
-  let anySectionInserted = false;
-  let lastAllowedSectionElem = null;
-  const allowedSections = data[0]?.split(",");
-  sectionsData.forEach((section) => {
-    if (section.type !== "hero" && allowedSections?.includes(section.cmbo)) {
-      const html = createSection(section);
-      lastInserted.insertAdjacentHTML("afterend", html);
-      lastInserted = lastInserted.nextElementSibling;
-      lastAllowedSectionElem = lastInserted;
-      anySectionInserted = true;
-    }
-  });
-  // Insert footerHtml inside the last allowed section
-  if (lastAllowedSectionElem) {
-    const inner = lastAllowedSectionElem.querySelector(".footersection");
-    if (inner) {
-      inner.insertAdjacentHTML("beforeend", footerHtml);
-    }
-  }
-});
-
-if ("scrollRestoration" in history) {
-  history.scrollRestoration = "manual";
-}
-
 window.addEventListener("load", function () {
   setTimeout(() => {
     window.scrollTo(0, 0);
   }, 10);
 });
 
-// REVEAL PANELS
-function revealPanels() {
-  document.querySelectorAll(".panel .inner").forEach((inner) => {
-    const top = inner.getBoundingClientRect().top;
-    const bottom = inner.getBoundingClientRect().bottom;
-    // If any part of the panel is visible
-    if (top < window.innerHeight - 100 && bottom > 100) {
-      inner.classList.add("active");
-    } else {
-      inner.classList.remove("active");
-    }
-  });
-}
-
-// Call revealPanels only after DOM is fully loaded and sections are inserted
 window.addEventListener("DOMContentLoaded", () => {
   revealPanels();
   window.addEventListener("scroll", revealPanels);
