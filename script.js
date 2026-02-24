@@ -2,8 +2,6 @@
 let lastTime = performance.now();
 let animationRunning = false;
 
-
-
 // Handle tab visibility (prevents jump / stacking issue)
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) {
@@ -187,7 +185,7 @@ window.addEventListener("scroll", () => {
   sections.forEach((sel, i) => {
     if (
       window.scrollY >=
-      document.querySelector(sel).offsetTop - window.innerHeight / 2
+      document.querySelector(sel)?.offsetTop - window.innerHeight / 2
     ) {
       index = i;
     }
@@ -217,6 +215,39 @@ window.addEventListener("resize", () => {
   confettiCanvas.height = window.innerHeight;
 });
 
+async function fetchSheetData(sheetId, sheetName) {
+  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
+  const response = await fetch(url);
+  const text = await response.text();
+
+  // Google returns JSON wrapped in a function call, so we need to extract it
+  const json = JSON.parse(
+    text.match(/google\.visualization\.Query\.setResponse\((.*)\);/)[1],
+  );
+  return json;
+}
+
+async function getSheetDataFormat() {
+  const res = await fetchSheetData(
+    "121ACovi12omFPe5jC2OSBxW8EKs5NhRVVrc4xWmrdJ0",
+    "wcodes",
+  );
+  const table = res.table;
+  const cmboIdx = table.cols.findIndex(
+    (col) => col.label.toLowerCase() === "cmbo",
+  );
+  const codeIdx = table.cols.findIndex(
+    (col) => col.label.toLowerCase() === "code",
+  );
+  const data = table.rows.map((row) => ({
+    cmbo: row.c[cmboIdx] ? row.c[cmboIdx].v : null,
+    code: row.c[codeIdx] ? row.c[codeIdx].v : null,
+  }));
+  return JSON.stringify(data, null, 2);
+}
+
+const sheetData = getSheetDataFormat();
+
 const sectionsData = [
   {
     head: "Emma & Liam",
@@ -231,6 +262,7 @@ const sectionsData = [
     type: "story",
     imageURL: "assets/images/story.jpg", // No image tag found in this section in the attached file
     icon: "❤️",
+    cmbo: "s",
   },
   {
     head: "Engagement💍",
@@ -238,6 +270,7 @@ const sectionsData = [
     type: "engagement",
     imageURL: "assets/images/engagement_1.png", // No image tag found in this section in the attached file
     icon: "💍",
+    cmbo: "e",
   },
   {
     head: "Wedding Ceremony👨🏻‍❤️‍👩🏻",
@@ -245,6 +278,7 @@ const sectionsData = [
     type: "ceremony",
     imageURL: "assets/images/wedding_1.png", // No image tag found in this section in the attached file
     icon: "⛪",
+    cmbo: "c",
   },
   {
     head: "Reception🥂",
@@ -252,6 +286,7 @@ const sectionsData = [
     type: "reception",
     imageURL: "assets/images/reception.png",
     icon: "🥂",
+    cmbo: "r",
   },
 ];
 
@@ -265,7 +300,7 @@ function createSection(section) {
   const panelClass =
     section.type === "hero" ? "hero" : `panel image-panel ${section.type}`;
 
-  // Section HTML
+  // Section HTML (footer removed from here)
   return `
     <section class="${panelClass}">
       ${section.type !== "hero" ? '<div class="overlay-dark"></div>' : ""}
@@ -275,38 +310,64 @@ function createSection(section) {
         <h2>${section.head}</h2>
         <p>${section.bodyText}</p>
       </div>
-      ${
-        section.type === "reception"
-          ? `<footer><div class="footer-inner"><p>Emma & Liam ❤️ 2026</p></div></footer>`
-          : ""
-      }
+      <footer class="footersection"></footer>
     </section>
   `;
 }
-
 // Remove existing panels except hero
 document.title = "Emma & Liam | Wedding Invitation";
 document.querySelectorAll(".panel.image-panel").forEach((el) => el.remove());
 window.onload = function () {
   window.scrollTo(0, 0); // Scrolls to top-left corner
 };
-// Insert sections in order after hero
+// Get 'sl' parameter from URL
+function getQueryParam(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
+const slParam = getQueryParam("sl");
+let processedSheetData = [];
+async function processSheetData() {
+  const resolvedSheetData = await sheetData;
+  const visibleSections = JSON.parse(resolvedSheetData)
+    .filter((el) => el.code == slParam)
+    .map((el) => el.cmbo);
+  return visibleSections;
+}
+
 const heroSection = document.querySelector(".hero");
 let lastInserted = heroSection;
-sectionsData.forEach((section) => {
-  if (section.type !== "hero") {
-    const html = createSection(section);
-    lastInserted.insertAdjacentHTML("afterend", html);
-    // Update lastInserted to the newly added section
-    lastInserted = lastInserted.nextElementSibling;
+const footerHtml = `<div class="footer-inner"><p>Emma & Liam ❤️ 2026</p></div>`;
+
+let processedSheetDataPromise = processSheetData();
+processedSheetDataPromise.then((data) => {
+  let anySectionInserted = false;
+  let lastAllowedSectionElem = null;
+  const allowedSections = data[0]?.split(",");
+  sectionsData.forEach((section) => {
+    if (section.type !== "hero" && allowedSections?.includes(section.cmbo)) {
+      const html = createSection(section);
+      lastInserted.insertAdjacentHTML("afterend", html);
+      lastInserted = lastInserted.nextElementSibling;
+      lastAllowedSectionElem = lastInserted;
+      anySectionInserted = true;
+    }
+  });
+  // Insert footerHtml inside the last allowed section
+  if (lastAllowedSectionElem) {
+    const inner = lastAllowedSectionElem.querySelector(".footersection");
+    if (inner) {
+      inner.insertAdjacentHTML("beforeend", footerHtml);
+    }
   }
 });
 
-if ('scrollRestoration' in history) {
-  history.scrollRestoration = 'manual';
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
 }
 
-window.addEventListener('load', function () {
+window.addEventListener("load", function () {
   setTimeout(() => {
     window.scrollTo(0, 0);
   }, 10);
@@ -331,20 +392,3 @@ window.addEventListener("DOMContentLoaded", () => {
   revealPanels();
   window.addEventListener("scroll", revealPanels);
 });
-
-
-async function fetchSheetData(sheetId, sheetName) {
-  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
-  const response = await fetch(url);
-  const text = await response.text();
-
-  // Google returns JSON wrapped in a function call, so we need to extract it
-  const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\((.*)\);/)[1]);
-  return json;
-}
-
-async function getSheetDataAndLog() {
-  const res = await fetchSheetData('121ACovi12omFPe5jC2OSBxW8EKs5NhRVVrc4xWmrdJ0', 'wcodes');
-  console.log('aaa', res);
-}
-getSheetDataAndLog();
