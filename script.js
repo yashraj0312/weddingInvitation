@@ -276,7 +276,7 @@ const sectionsData = [
     head: "Wedding Ceremony👨🏻‍❤️‍👩🏻",
     bodyText: "Sunset Garden Hall · 4:00 PM",
     type: "ceremony",
-    imageURL: "assets/images/wedding_1.png", // No image tag found in this section in the attached file
+    imageURL: "assets/images/wedding_2.png", // No image tag found in this section in the attached file
     icon: "⛪",
     cmbo: "c",
   },
