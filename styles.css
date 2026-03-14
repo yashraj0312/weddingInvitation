@@ -204,7 +204,7 @@ body {
   z-index: 1;
 }
 
-.panel .inner{
+.panel .inner {
   position: relative;
   z-index: 3;
   max-width: 800px;
@@ -268,6 +268,10 @@ h2 {
   transition-delay: 0.5s;
 }
 
+.section-bodyText {
+  padding: 4px;
+}
+
 /* Countdown */
 #countdown {
   display: flex;
@@ -296,10 +300,9 @@ footer {
   bottom: 0;
   z-index: 2;
 }
-.footer-inner{
+.footer-inner {
   background: #000;
   padding: 20px;
-
 }
 
 .panel.reception::after {
@@ -441,12 +444,12 @@ footer {
     padding: 12px 14px;
     font-size: 16px;
   }
-  
+
   .glass-card {
     padding: 25px;
   }
 
-    #dot-nav {
+  #dot-nav {
     right: 15px;
   }
 }
