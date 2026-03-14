@@ -65,6 +65,11 @@ body {
   margin-top: 10px;
   opacity: 0.8;
   letter-spacing: 2px;
+  font-size: clamp(
+    8px,
+    8vw,
+    24px
+  );
 }
 
 @keyframes luxuryFade {
@@ -270,6 +275,11 @@ h2 {
 
 .section-bodyText {
   padding: 4px;
+}
+
+.section-bodyText img{
+  width: 1.4em;
+  height: 1.4em;
 }
 
 /* Countdown */

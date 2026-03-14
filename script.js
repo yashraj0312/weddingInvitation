@@ -211,7 +211,7 @@ const sectionsData = [
   },
   {
     head: "Engagement💍",
-    bodyText: "Under the stars, forever began.",
+    bodyText: ["22nd Jun 2026, 06:30 PM Onwards", "Venue: Hotel Nakshatra 2.0, Viraj Khand, Lucknow. Google Map: <a href=\"https://maps.app.goo.gl/3ytN7ibTGA96ypys5\" target=\"_blank\" aria-label=\"View on Google Maps\"><img src=\"assets/images/map.png\"\></a>"],
     type: "engagement",
     imageURL: "assets/images/engagement_1.png", // No image tag found in this section in the attached file
     icon: "💍",
@@ -219,7 +219,7 @@ const sectionsData = [
   },
   {
     head: "Wedding Ceremony👨🏻‍❤️‍👩🏻",
-    bodyText: "Sunset Garden Hall · 4:00 PM",
+    bodyText: ["20th Nov 2026, 07:00 PM Onwards", "Stay: Hotel Xenia, Near Galaxy Hospital, Mahmoorganj, Varanasi. Google Map: <a href=\"https://maps.app.goo.gl/cVh9Fh5DMmhDoDFC8\" target=\"_blank\" aria-label=\"View on Google Maps\"><img src=\"assets/images/map.png\"\></a>","Wedding Ceremony: Chaurasia Lawn, Mahmoorganj, Varanasi. Google Map: <a href=\"https://maps.app.goo.gl/6x2JdButcWRkAJiDA\" target=\"_blank\" aria-label=\"View on Google Maps\"><img src=\"assets/images/map.png\"\></a>"],
     type: "ceremony",
     imageURL: "assets/images/wedding_2.png", // No image tag found in this section in the attached file
     icon: "⛪",
@@ -227,7 +227,7 @@ const sectionsData = [
   },
   {
     head: "Reception🥂",
-    bodyText: "Grand Ballroom · 6:00 PM",
+    bodyText: ["24th Nov 2026, 07:30 PM Onwards", "Venue: The Opal, Bareilly Road, Rampur. Google Map: <a href=\"https://maps.app.goo.gl/HDhQ2746jpY1D4EX9\" target=\"_blank\" aria-label=\"View on Google Maps\"><img src=\"assets/images/map.png\"\></a>"],
     type: "reception",
     imageURL: "assets/images/reception_1.jpeg",
     icon: "🥂",
