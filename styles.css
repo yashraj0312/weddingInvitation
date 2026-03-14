@@ -273,6 +273,21 @@ h2 {
   transition-delay: 0.5s;
 }
 
+.panel .inner.active > *:nth-child(4) {
+  transition-delay: 0.7s;
+}
+
+.panel .inner.active > *:nth-child(5) {
+  transition-delay: 0.9s;
+}
+
+.panel .inner.active > *:nth-child(6) {
+  transition-delay: 1.1s;
+}
+
+.panel .inner.active > *:nth-child(7) {
+  transition-delay: 1.3s;
+}
 .section-bodyText {
   padding: 4px;
 }
