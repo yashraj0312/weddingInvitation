@@ -200,7 +200,7 @@ const sectionsData = [
     head: "Yash & Harshita",
     bodyText: "Wedding Invitation",
     type: "hero",
-    imageURL: "assets/images/hero-bg.jpg",
+    imageURL: "assets/images/hero-img-bg-1.png",
     icon: null,
   },
   {
