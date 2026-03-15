@@ -1,56 +1,49 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <script>
-      const url = new URL(window.location.href);
 
-      if (!url.searchParams.has("t")) {
-        url.searchParams.set("t", Date.now());
-        window.location.replace(url.toString());
-      }
-    </script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-    <title>Yash & Harshita | Wedding Invitation</title>
-  </head>
+<head>
+  <script>
+    const url = new URL(window.location.href);
 
-  <body>
-    <!-- Intro Loader -->
-    <div id="intro-loader">
-      <div class="loader-content">
-        <h1>Yash & Harshita</h1>
-        <p>Wedding Invitation</p>
-      </div>
+    if (!url.searchParams.has("t")) {
+      url.searchParams.set("t", Date.now());
+      window.location.replace(url.toString());
+    }
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Yash & Harshita | Wedding Invitation</title>
+</head>
+
+<body>
+  <!-- Intro Loader -->
+  <div id="intro-loader">
+    <div class="loader-content">
+      <h1>Yash & Harshita</h1>
+      <p>Wedding Invitation</p>
     </div>
+  </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-      <video
-        class="hero-video"
-        autoplay
-        muted
-        loop
-        playsinline
-        poster="assets/images/hero-img-bg-1.png"
-      ></video>
-      <div class="hero-overlay"></div>
-      <canvas id="particles"></canvas>
+  <!-- Hero Section -->
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline poster="assets/images/hero-img-bg-1.png"></video>
+    <div class="hero-overlay"></div>
+    <canvas id="particles"></canvas>
 
-      <div class="hero-inner">
-        <h1><span>Yash</span> & <span>Harshita</span></h1>
-        <p class="reveal">Nov 20, 2026</p>
-        <div id="countdown" class="reveal"></div>
-      </div>
-    </section>
+    <div class="hero-inner">
+      <h1><span>Yash</span> & <span>Harshita</span></h1>
+      <p class="reveal">Nov 20, 2026</p>
+      <div id="countdown" class="reveal"></div>
+    </div>
+  </section>
 
-    <div id="progress-bar"></div>
+  <div id="progress-bar"></div>
 
-    <!-- <nav id="dot-nav">
+  <!-- <nav id="dot-nav">
       <ul>
         <li data-target=".hero" class="active"></li>
         <li data-target=".story"></li>
@@ -60,7 +53,22 @@
       </ul>
     </nav> -->
 
-    <canvas id="confetti"></canvas>
-    <script src="script.js"></script>
-  </body>
+  <canvas id="confetti"></canvas>
+  <script src="script.js"></script>
+  <script>
+    setInterval(async () => {
+      const response = await fetch(window.location.href, { cache: "no-store" });
+      const text = await response.text();
+
+      if (!window.currentPageContent) {
+        window.currentPageContent = document.documentElement.innerHTML;
+      }
+
+      if (text !== window.currentPageContent) {
+        location.reload();
+      }
+    }, 60000);
+  </script>
+</body>
+
 </html>
