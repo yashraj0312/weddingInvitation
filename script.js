@@ -229,7 +229,7 @@ const sectionsData = [
   },
   {
     head: "Reception🥂",
-    bodyText: [`24th Nov 2026, 07:30 PM Onwards`, `Venue: <a href=\"https://maps.app.goo.gl/HDhQ2746jpY1D4EX9\" target=\"_blank\" aria-label=\"View on Google Maps\">The Opal, Bareilly Road, Rampur. Map1234:${locationMarkerSvg}</a>`],
+    bodyText: [`24th Nov 2026, 07:30 PM Onwards`, `Venue: <a href=\"https://maps.app.goo.gl/HDhQ2746jpY1D4EX9\" target=\"_blank\" aria-label=\"View on Google Maps\">The Opal, Bareilly Road, Rampur. Map12345678:${locationMarkerSvg}</a>`],
     type: "reception",
     imageURL: "assets/images/reception_1.jpeg",
     icon: "🥂",
