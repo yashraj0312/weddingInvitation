@@ -213,7 +213,7 @@ const sectionsData = [
   },
   {
     head: "Engagement💍",
-    bodyText: [`22nd Jun 2026, 06:30 PM Onwards`, `Venue: <a href=\"https://maps.app.goo.gl/3ytN7ibTGA96ypys5\" target=\"_blank\" aria-label=\"View on Google Maps\">Hotel Nakshatra 2.0, Viraj Khand, Lucknow. Map:${locationMarkerSvg}</a>`],
+    bodyText: [`22nd Jun 2026, 06:30 PM Onwards`, `Venue: <a href=\"https://maps.app.goo.gl/3ytN7ibTGA96ypys5\" target=\"_blank\" aria-label=\"View on Google Maps\">Hotel Nakshatra 2.0, Viraj Khand, Lucknow. Location:${locationMarkerSvg}</a>`],
     type: "engagement",
     imageURL: "assets/images/engagement_1.png", // No image tag found in this section in the attached file
     icon: "💍",
@@ -221,7 +221,7 @@ const sectionsData = [
   },
   {
     head: "Wedding Ceremony👨🏻‍❤️‍👩🏻",
-    bodyText: [`20th Nov 2026, 07:00 PM Onwards`, `Venue: <a href=\"https://maps.app.goo.gl/6x2JdButcWRkAJiDA\" target=\"_blank\" aria-label=\"View on Google Maps\">Chaurasia Lawn, Mahmoorganj, Varanasi. Map:${locationMarkerSvg}</a>`, `Stay At: <a href=\"https://maps.app.goo.gl/cVh9Fh5DMmhDoDFC8\" target=\"_blank\" aria-label=\"View on Google Maps\">Hotel Xenia, Near Galaxy Hospital, Mahmoorganj, Varanasi. Map:${locationMarkerSvg}</a>`,],
+    bodyText: [`20th Nov 2026, 07:00 PM Onwards`, `Venue: <a href=\"https://maps.app.goo.gl/6x2JdButcWRkAJiDA\" target=\"_blank\" aria-label=\"View on Google Maps\">Chaurasia Lawn, Mahmoorganj, Varanasi. Location:${locationMarkerSvg}</a>`, `Stay At: <a href=\"https://maps.app.goo.gl/cVh9Fh5DMmhDoDFC8\" target=\"_blank\" aria-label=\"View on Google Maps\">Hotel Xenia, Near Galaxy Hospital, Mahmoorganj, Varanasi. Location:${locationMarkerSvg}</a>`,],
     type: "ceremony",
     imageURL: "assets/images/wedding_2.png", // No image tag found in this section in the attached file
     icon: "⛪",
@@ -229,7 +229,7 @@ const sectionsData = [
   },
   {
     head: "Reception🥂",
-    bodyText: [`24th Nov 2026, 07:30 PM Onwards`, `Venue: <a href=\"https://maps.app.goo.gl/HDhQ2746jpY1D4EX9\" target=\"_blank\" aria-label=\"View on Google Maps\">The Opal, Bareilly Road, Rampur. Map12345678:${locationMarkerSvg}</a>`],
+    bodyText: [`24th Nov 2026, 07:30 PM Onwards`, `Venue: <a href=\"https://maps.app.goo.gl/HDhQ2746jpY1D4EX9\" target=\"_blank\" aria-label=\"View on Google Maps\">The Opal, Bareilly Road, Rampur. Location:${locationMarkerSvg}</a>`],
     type: "reception",
     imageURL: "assets/images/reception_1.jpeg",
     icon: "🥂",

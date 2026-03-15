@@ -2,14 +2,6 @@
 <html lang="en">
 
 <head>
-  <script>
-    const url = new URL(window.location.href);
-
-    if (!url.searchParams.has("t")) {
-      url.searchParams.set("t", Date.now());
-      window.location.replace(url.toString());
-    }
-  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link
@@ -55,20 +47,5 @@
 
   <canvas id="confetti"></canvas>
   <script src="script.js"></script>
-  <script>
-    setInterval(async () => {
-      const response = await fetch(window.location.href, { cache: "no-store" });
-      const text = await response.text();
-
-      if (!window.currentPageContent) {
-        window.currentPageContent = document.documentElement.innerHTML;
-      }
-
-      if (text !== window.currentPageContent) {
-        location.reload();
-      }
-    }, 60000);
-  </script>
 </body>
-
 </html>
