@@ -221,7 +221,7 @@ const sectionsData = [
   },
   {
     head: "Wedding Ceremony👨🏻‍❤️‍👩🏻",
-    bodyText: [`20th Nov 2026, 07:00 PM Onwards`, `Stay: <a href=\"https://maps.app.goo.gl/cVh9Fh5DMmhDoDFC8\" target=\"_blank\" aria-label=\"View on Google Maps\">Hotel Xenia, Near Galaxy Hospital, Mahmoorganj, Varanasi${locationMarkerSvg}</a>`, `Wedding Venue: <a href=\"https://maps.app.goo.gl/6x2JdButcWRkAJiDA\" target=\"_blank\" aria-label=\"View on Google Maps\">Chaurasia Lawn, Mahmoorganj, Varanasi${locationMarkerSvg}</a>`],
+    bodyText: [`20th Nov 2026, 07:00 PM Onwards`, `Venue: <a href=\"https://maps.app.goo.gl/6x2JdButcWRkAJiDA\" target=\"_blank\" aria-label=\"View on Google Maps\">Chaurasia Lawn, Mahmoorganj, Varanasi${locationMarkerSvg}</a>`, `Stay At: <a href=\"https://maps.app.goo.gl/cVh9Fh5DMmhDoDFC8\" target=\"_blank\" aria-label=\"View on Google Maps\">Hotel Xenia, Near Galaxy Hospital, Mahmoorganj, Varanasi${locationMarkerSvg}</a>`,],
     type: "ceremony",
     imageURL: "assets/images/wedding_2.png", // No image tag found in this section in the attached file
     icon: "⛪",
