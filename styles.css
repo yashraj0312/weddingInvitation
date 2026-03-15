@@ -205,7 +205,7 @@ body {
 .image-panel .overlay-dark {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 1;
 }
 
@@ -288,6 +288,7 @@ h2 {
 .panel .inner.active > *:nth-child(7) {
   transition-delay: 1.3s;
 }
+
 .section-bodyText {
   padding: 4px;
 }
@@ -393,6 +394,21 @@ footer {
 
 .reception-img {
   position: absolute;
+}
+
+.mb-24{
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.mt-24{
+  display: inline-block;
+  margin-top: 24px;
+}
+
+.mt-12{
+  display: inline-block;
+  margin-top: 12px;
 }
 
 /* =========================
@@ -540,4 +556,13 @@ footer {
     top: -99999px;
     background-color: #000;
   }
+}
+
+svg{
+  margin-bottom: -5px;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: underline;
 }

@@ -28,6 +28,8 @@ const footerHtml = `<div class="footer-inner"><p>${GROOM_NAME} & ${BRIDE_NAME} �
 
 const WORKING_QUERY_PARAM = 'sl';
 
+const locationMarkerSvg = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#EA3323"><path d="M480-388q54-50 84-80t47-50q16-20 22.5-37t6.5-37q0-36-26-62t-62-26q-21 0-40.5 8.5T480-648q-12-15-31-23.5t-41-8.5q-36 0-62 26t-26 62q0 21 6 37t22 36q17 20 46 50t86 81Zm0 308Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Z"/></svg>`;
+
 const animateConfetti = (time = performance.now()) => {
   if (!animationRunning) return;
 
@@ -202,16 +204,16 @@ const sectionsData = [
     icon: null,
   },
   {
-    head: "Our Story❤️",
-    bodyText: "One message turned up to a connection of a lifetime.",
+    head: "Mrs. Vandana and Mr. Ashutosh Saxena",
+    bodyText: [`<i class="mb-24">Invite you to celebrate the auspicious union of our beloved son</i>`, "Yash Raj🤵", "<i>with</i>", "Harshita Srivastava👰", `<i class="mt-24">(D/o Mrs. Neelam Srivastava and Late Mr. Sanjay Srivastava)</i>`, `<i class="mt-12">We look forward to your presence and blessings on this joyous occasion...</i>`],
     type: "story",
-    imageURL: "assets/images/story.jpg", // No image tag found in this section in the attached file
+    imageURL: "assets/images/invite.png", // No image tag found in this section in the attached file
     icon: "❤️",
     cmbo: "s",
   },
   {
     head: "Engagement💍",
-    bodyText: ["22nd Jun 2026, 06:30 PM Onwards", "Venue: Hotel Nakshatra 2.0, Viraj Khand, Lucknow. Google Map: <a href=\"https://maps.app.goo.gl/3ytN7ibTGA96ypys5\" target=\"_blank\" aria-label=\"View on Google Maps\"><img src=\"assets/images/map.png\"\></a>"],
+    bodyText: [`22nd Jun 2026, 06:30 PM Onwards`, `Venue: <a href=\"https://maps.app.goo.gl/3ytN7ibTGA96ypys5\" target=\"_blank\" aria-label=\"View on Google Maps\">Hotel Nakshatra 2.0, Viraj Khand, Lucknow${locationMarkerSvg}</a>`],
     type: "engagement",
     imageURL: "assets/images/engagement_1.png", // No image tag found in this section in the attached file
     icon: "💍",
@@ -219,7 +221,7 @@ const sectionsData = [
   },
   {
     head: "Wedding Ceremony👨🏻‍❤️‍👩🏻",
-    bodyText: ["20th Nov 2026, 07:00 PM Onwards", "Stay: Hotel Xenia, Near Galaxy Hospital, Mahmoorganj, Varanasi. Google Map: <a href=\"https://maps.app.goo.gl/cVh9Fh5DMmhDoDFC8\" target=\"_blank\" aria-label=\"View on Google Maps\"><img src=\"assets/images/map.png\"\></a>","Wedding Ceremony: Chaurasia Lawn, Mahmoorganj, Varanasi. Google Map: <a href=\"https://maps.app.goo.gl/6x2JdButcWRkAJiDA\" target=\"_blank\" aria-label=\"View on Google Maps\"><img src=\"assets/images/map.png\"\></a>"],
+    bodyText: [`20th Nov 2026, 07:00 PM Onwards`, `Stay: <a href=\"https://maps.app.goo.gl/cVh9Fh5DMmhDoDFC8\" target=\"_blank\" aria-label=\"View on Google Maps\">Hotel Xenia, Near Galaxy Hospital, Mahmoorganj, Varanasi${locationMarkerSvg}</a>`, `Wedding Venue: <a href=\"https://maps.app.goo.gl/6x2JdButcWRkAJiDA\" target=\"_blank\" aria-label=\"View on Google Maps\">Chaurasia Lawn, Mahmoorganj, Varanasi${locationMarkerSvg}</a>`],
     type: "ceremony",
     imageURL: "assets/images/wedding_2.png", // No image tag found in this section in the attached file
     icon: "⛪",
@@ -227,7 +229,7 @@ const sectionsData = [
   },
   {
     head: "Reception🥂",
-    bodyText: ["24th Nov 2026, 07:30 PM Onwards", "Venue: The Opal, Bareilly Road, Rampur. Google Map: <a href=\"https://maps.app.goo.gl/HDhQ2746jpY1D4EX9\" target=\"_blank\" aria-label=\"View on Google Maps\"><img src=\"assets/images/map.png\"\></a>"],
+    bodyText: [`24th Nov 2026, 07:30 PM Onwards`, `Venue: <a href=\"https://maps.app.goo.gl/HDhQ2746jpY1D4EX9\" target=\"_blank\" aria-label=\"View on Google Maps\">The Opal, Bareilly Road, Rampur${locationMarkerSvg}</a>`],
     type: "reception",
     imageURL: "assets/images/reception_1.jpeg",
     icon: "🥂",
@@ -243,8 +245,8 @@ function createSection(section) {
 
   const bodyHtml = Array.isArray(section.bodyText)
     ? section.bodyText
-        .map((text) => `<p class="section-bodyText">${text}</p>`)
-        .join("")
+      .map((text) => `<p class="section-bodyText">${text}</p>`)
+      .join("")
     : `<p>${section.bodyText}</p>`;
 
   // Panel class for all except hero
