@@ -212,7 +212,7 @@ const sectionsData = [
     cmbo: "s",
   },
   {
-    head: "Engagement💍",
+    head: "Engage💍",
     bodyText: [`22nd Jun 2026, 06:30 PM Onwards`, `Venue: <a href=\"https://maps.app.goo.gl/3ytN7ibTGA96ypys5\" target=\"_blank\" aria-label=\"View on Google Maps\">Hotel Nakshatra 2.0, Viraj Khand, Lucknow, Location:${locationMarkerSvg}</a>`],
     type: "engagement",
     imageURL: "assets/images/engagement_1.png", // No image tag found in this section in the attached file
