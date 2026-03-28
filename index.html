@@ -47,7 +47,9 @@
 
   <canvas id="confetti"></canvas>
   <script>
-    document.write('<script src="script.js?d=' + new Date().getTime() + '"><\/script>');
+    const timestamp = new Date().getTime();
+    document.write('<link rel="stylesheet" href="styles.css?d=' + timestamp + '" />');
+    document.write('<script src="script.js?d=' + timestamp + '"><\/script>');
   </script>
 </body>
 </html>
